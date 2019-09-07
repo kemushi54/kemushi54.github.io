@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="VSCode,R,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="其實在用 VScode 之前，R 專用的 IDE: RStudio 也用得好好的，不過因為某人推坑加上之後也會想要學其它程式語言，不想要一個程式語言就一個 IDE，所以就來試試 VScode了。 VScode 本身只是個編輯器，所以對需要邊寫 code 也邊在像 RStudio 一樣執行程式碼看結果，但又不想透過另外開 terminal 來執行，就會需要多一點設定的動作了。 先說使用心得好了，用過">
+<meta name="keywords" content="VSCode,R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[筆記] R with Visual Studio Code (VS Code)">
+<meta property="og:url" content="https://kemushi54.github.io/2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/index.html">
+<meta property="og:site_name" content="Coffee -&gt; Code">
+<meta property="og:description" content="其實在用 VScode 之前，R 專用的 IDE: RStudio 也用得好好的，不過因為某人推坑加上之後也會想要學其它程式語言，不想要一個程式語言就一個 IDE，所以就來試試 VScode了。 VScode 本身只是個編輯器，所以對需要邊寫 code 也邊在像 RStudio 一樣執行程式碼看結果，但又不想透過另外開 terminal 來執行，就會需要多一點設定的動作了。 先說使用心得好了，用過">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/Hte5CpN.png">
+<meta property="og:image" content="https://i.imgur.com/gZoBtKw.png">
+<meta property="og:updated_time" content="2019-09-07T09:05:29.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[筆記] R with Visual Studio Code (VS Code)">
+<meta name="twitter:description" content="其實在用 VScode 之前，R 專用的 IDE: RStudio 也用得好好的，不過因為某人推坑加上之後也會想要學其它程式語言，不想要一個程式語言就一個 IDE，所以就來試試 VScode了。 VScode 本身只是個編輯器，所以對需要邊寫 code 也邊在像 RStudio 一樣執行程式碼看結果，但又不想透過另外開 terminal 來執行，就會需要多一點設定的動作了。 先說使用心得好了，用過">
+<meta name="twitter:image" content="https://i.imgur.com/Hte5CpN.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kemushi54.github.io/2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/">
+
+
+
+
+
+  <title>[筆記] R with Visual Studio Code (VS Code) | Coffee -> Code</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coffee -> Code</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kemushi54.github.io/2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kemushi54">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coffee -> Code">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">[筆記] R with Visual Studio Code (VS Code)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-07T16:44:43+08:00">
+                2019-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>其實在用 VScode 之前，R 專用的 IDE: RStudio 也用得好好的，不過因為某人推坑加上之後也會想要學其它程式語言，不想要一個程式語言就一個 IDE，所以就來試試 VScode了。 VScode 本身只是個編輯器，所以對需要邊寫 code 也邊在像 RStudio 一樣執行程式碼看結果，但又不想透過另外開 terminal 來執行，就會需要多一點設定的動作了。</p>
+<p>先說使用心得好了，用過後覺得 VScode 跟 RStudio 使用起來沒有差太多，可能是我沒有需要太多功能吧(?) 所以對只寫 R 的人來說，RStudio 用習慣的話，我覺得是沒有什麼必要換成 VScode，而且有些自動補齊的功能不知道是我沒設定好還是怎樣，RStudio 還是的功能還是比較完整，畢竟是專屬的 IDE 嘛~ 不過 VScode 介面不知為何看起來就是比較舒服順眼，所以應該還是會繼續看看有什麼 extension 可以加或改設定可以讓它用起來更順手，有找到什麼好用的東西再來介紹吧XD</p>
+<h3 id="Install-vscode"><a href="#Install-vscode" class="headerlink" title="Install vscode"></a>Install vscode</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> windows</span><br><span class="line"><span class="meta">$</span> choco install vscode</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> mac</span><br><span class="line"><span class="meta">$</span> brew cask install visual-studio-code</span><br></pre></td></tr></table></figure>
+<p>或著也可以去 <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">官網</a> 選擇相對應作業系統的安裝檔下載來安裝</p>
+<h3 id="Install-extensions"><a href="#Install-extensions" class="headerlink" title="Install extensions"></a>Install extensions</h3><p>VScode 本身只是個編輯器，所以如果不只是想要編輯，同時也想在 VScode 上執行 script 的話，就需要靠與各語言接口的 extensions 啦。以 R 來說，需要安裝的基本 extension 有 <strong>R</strong>, <strong>R LSP Client</strong> 這兩個。</p>
+<ul>
+<li><p>R support for Visual Studio Code<br>VS Code 的 R 核心 extension，具有語法高亮、程式碼執行等功能，裝了之後就可以像在 RStudio 裡面一樣使用 <strong>ctrl</strong> + <strong>enter</strong> 來執行選取的程式碼惹。</p>
+</li>
+<li><p>R LSP Client<br>有了它就可以進行程式碼補全、檢視 R function 定義等。不過想讓這個 extension 功能實踐，還需要安裝額外的 package： <code>languageserver</code> 才能讓 VScode 跟 R 連動。</p>
+  <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install.packages(<span class="string">"languageserver"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Setting-path-of-R"><a href="#Setting-path-of-R" class="headerlink" title="Setting path of R"></a>Setting path of R</h3><p>必須的 extensions 安裝完之後，還有一些路徑需要設定，VScode 才會跟你想要使用的語言來做連動，以 R 來說有兩個路徑要設，r.rterm 與 r.Lsp。</p>
+<ul>
+<li>按下 <strong>F1</strong>，輸入 <code>Preferences: Open Settings</code> 進入設定的頁面</li>
+<li>看作業系統選擇輸入 <strong>r.term.mac</strong> 或 <strong>r.term.windows</strong> 以及 <strong>r.lsp</strong></li>
+<li>在指定路徑的地方輸入自己電腦存放 R 執行檔 R.exe 的路徑，記得要找到對的執行檔路徑！像我 mac 不知為何有兩個 R.exe 第一次設到不是平常用的那一個執行檔路徑，結果一堆 package 都沒有orz 好在後來找到平常使用的那個路徑了…像我 mac 的路徑是 <code>/Library/Frameworks/R.framework/Versions/3.5/Resources/bin/R</code>; windows 的則是 <code>C:\Program Files\R\R-3.5.0\bin\x64\R.exe</code></li>
+</ul>
+<h3 id="radian-rtichoke"><a href="#radian-rtichoke" class="headerlink" title="radian (rtichoke)"></a>radian (rtichoke)</h3><p>以上都設定好後，應該就可以在 VS Code 中執行 R 程式碼了，不過這時候底下 terminal 呼叫出來的是官方的 R 終端，這個終端只有基本執行程式碼的功能，就像你直接打開 R.exe 來執行程式碼那樣樸素，對用慣了華麗又人性化的 RStudio Console 的人來說應該會超不習慣而且會覺得很難用。</p>
+<p>好在有 radian (舊名為 rtichoke) 幫忙實現多行編輯、語法高亮和自動補齊等功能，用起來不輸 RStudio 太多。不過因為這個軟體本身是 Python 寫，所以需要安裝 Python 然後用 pip 來安裝。</p>
+<ul>
+<li>安裝 Python (推薦用 anaconda 來安裝 Python)</li>
+<li>開啟 Anaconda Prompt， 輸入 <code>pip install -U radian</code> </li>
+<li><p>待安裝完成後輸入 <code>radian</code> 測試是否安裝成功，有進到 R 裡面就代表成功啦！</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> radian</span><br><span class="line">R version 3.5.3 (2019-03-11) -- "Great Truth"</span><br><span class="line">Platform: x86_64-apple-darwin15.6.0 (64-bit)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回到終端機，輸入 <code>where radian</code> 找到 radian.exe 的路徑</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> where radian</span><br><span class="line">/usr/local/anaconda3/bin/radian</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接著在 VS Code 中重新設定 <code>r.rterm.windows</code>/ <code>r.rterm.mac</code> 以及 <code>r.lsp.path</code> 為 rtichoke.ext 的路徑</p>
+</li>
+<li><p>打開 r.rterm.option 的配置檔案 (.json)，取消掉這個選項下的 –no-save 和 no-restore 參數 (如果原本沒有參數的話，直接增加 line 8-10 就可以了)</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"r.rterm.mac"</span>: <span class="string">"/usr/local/anaconda3/bin/radian"</span>,</span><br><span class="line">    <span class="attr">"files.associations"</span>: &#123;</span><br><span class="line">        <span class="attr">"*.rmd"</span>: <span class="string">"markdown"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"r.lsp.path"</span>: <span class="string">"/usr/local/anaconda3/bin/radian"</span>,</span><br><span class="line">    <span class="attr">"r.lsp.debug"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"r.rterm.option"</span>: [</span><br><span class="line">        // <span class="string">"--no-save"</span>,</span><br><span class="line">        // <span class="string">"--no-restore"</span>,</span><br><span class="line">        <span class="string">"--no-site-file"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重啟 VScode 應該就可以像下面這樣看到華麗的 terminal 啦~！<br><img src="https://i.imgur.com/Hte5CpN.png" alt></p>
+</li>
+</ul>
+<h3 id="Keyboard-shortcut"><a href="#Keyboard-shortcut" class="headerlink" title="Keyboard shortcut"></a>Keyboard shortcut</h3><p>快捷鍵的設定可以在設定當中的 Keyboard Shortcut 介面中作設定，有一些比較特殊的指令也可以透過直接修改 <code>keybindings.json</code> 來做設定（按下 <strong>{}</strong> 來開啟設定的 .json)。<br><img src="https://i.imgur.com/gZoBtKw.png" alt><br>像是以往在 RStudio 常用的 <code>&lt;-</code> 以及 <code>%&gt;%</code> 的快捷鍵設定就可以像下面這樣操作。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"key"</span>: <span class="string">"alt+-"</span>,</span><br><span class="line">    <span class="attr">"command"</span>: <span class="string">"type"</span>,</span><br><span class="line">    <span class="attr">"args"</span>: &#123;</span><br><span class="line">        <span class="attr">"text"</span>: <span class="string">" &lt;- "</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"key"</span>: <span class="string">"cmd+shift+m"</span>,</span><br><span class="line">    <span class="attr">"command"</span>: <span class="string">"type"</span>,</span><br><span class="line">    <span class="attr">"args"</span>: &#123;</span><br><span class="line">        <span class="attr">"text"</span>: <span class="string">" %&gt;% "</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"when"</span>: <span class="string">"editorTextFocus"</span></span><br><span class="line">&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>其中 <strong>key</strong> 指的就是快捷鍵的部分，多個快捷鍵可以用 <code>+</code> 來做連接；<strong>command</strong> 為命令，這裡的 <strong>type</strong> 指的就是輸入; <strong>args</strong> 就是快捷鍵輸入的內容，寫在 <code>text</code> 之後；<strong>when</strong> 則是指定快捷鍵在哪個地方有作用，後面指定的 <code>editorTextFocus</code> 指的是在編輯器的時候。</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://sspai.com/post/47386" target="_blank" rel="noopener">在VSCode 中配置R 语言运行环境</a><br><a href="https://github.com/randy3k/radian" target="_blank" rel="noopener">radian</a><br><a href="https://www.itread01.com/liexy.html" target="_blank" rel="noopener">VS Code 系列 1：提升 R 和 Python 使用體驗</a><br><a href="https://guangchuangyu.github.io/cn/2018/04/vscode-r/" target="_blank" rel="noopener">在VSCode中愉快地使用R</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/VSCode/" rel="tag"># VSCode</a>
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/21/筆記-使用-Chocolatey-打造-Windows-環境/" rel="next" title="[筆記] 使用 Chocolatey 打造 Windows 環境">
+                <i class="fa fa-chevron-left"></i> [筆記] 使用 Chocolatey 打造 Windows 環境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.jpg" alt="kemushi54">
+            
+              <p class="site-author-name" itemprop="name">kemushi54</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kemushi54/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/anyu.chang.5" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-vscode"><span class="nav-number">1.</span> <span class="nav-text">Install vscode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-extensions"><span class="nav-number">2.</span> <span class="nav-text">Install extensions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-path-of-R"><span class="nav-number">3.</span> <span class="nav-text">Setting path of R</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#radian-rtichoke"><span class="nav-number">4.</span> <span class="nav-text">radian (rtichoke)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keyboard-shortcut"><span class="nav-number">5.</span> <span class="nav-text">Keyboard shortcut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kemushi54</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://kemushi54.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://kemushi54.github.io/2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/';
+          this.page.identifier = '2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/';
+          this.page.title = '[筆記] R with Visual Studio Code (VS Code)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://kemushi54.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
