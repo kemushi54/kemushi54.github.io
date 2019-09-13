@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="WiDS,">
+  <meta name="keywords" content="PostgreSQL,">
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="這次 conference 各個大大的分享雖然都比較偏向在企業上的經驗，不過其實聽下來許多處理資料的想法都跟我們生態上所接觸的相去不遠，大概在資料的世界即使領域不同還是互通的吧～所以即使分享的大大們沒有生物相關背景的，這次的收穫還是非常的豐富！ 以下就依每場演講來留個紀錄，雖然是很零散地筆記XD，不過還是留個紀錄 01_Health Care AnalyticsElvena Fong, Healt">
-<meta name="keywords" content="WiDS">
+<meta name="description" content="NAS (Network Attached Storage) 是透過網路來連接的儲存裝置，有點像是小型的雲端伺服器，電腦可以透過網路來存取 NAS 上的檔案。而 NAS 除了以檔案/ 資料夾的形式來共享資料之外，也可以透過建立資料庫來分享資料。以下筆記在 NAS 上面建立 Postgres 資料庫所需要的操作以及如何取得已建立資料庫裡面的檔案。 以下操作 NAS 的型號為 QNAP TS-453B">
+<meta name="keywords" content="PostgreSQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[心得] WiDS Taipei Conference 2019">
-<meta property="og:url" content="https://kemushi54.github.io/2019/04/02/心得-WiDS-Taipei-Conference-2019/index.html">
+<meta property="og:title" content="[筆記] PostgreSQL on NAS">
+<meta property="og:url" content="https://kemushi54.github.io/2019/09/13/筆記-PostgreSQL-on-NAS/index.html">
 <meta property="og:site_name" content="Coffee -&gt; Code">
-<meta property="og:description" content="這次 conference 各個大大的分享雖然都比較偏向在企業上的經驗，不過其實聽下來許多處理資料的想法都跟我們生態上所接觸的相去不遠，大概在資料的世界即使領域不同還是互通的吧～所以即使分享的大大們沒有生物相關背景的，這次的收穫還是非常的豐富！ 以下就依每場演講來留個紀錄，雖然是很零散地筆記XD，不過還是留個紀錄 01_Health Care AnalyticsElvena Fong, Healt">
+<meta property="og:description" content="NAS (Network Attached Storage) 是透過網路來連接的儲存裝置，有點像是小型的雲端伺服器，電腦可以透過網路來存取 NAS 上的檔案。而 NAS 除了以檔案/ 資料夾的形式來共享資料之外，也可以透過建立資料庫來分享資料。以下筆記在 NAS 上面建立 Postgres 資料庫所需要的操作以及如何取得已建立資料庫裡面的檔案。 以下操作 NAS 的型號為 QNAP TS-453B">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-02T15:03:26.606Z">
+<meta property="og:image" content="https://i.imgur.com/R9ADFiK.png">
+<meta property="og:image" content="https://i.imgur.com/9Xxgrz0.png">
+<meta property="og:updated_time" content="2019-09-13T13:49:54.161Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[心得] WiDS Taipei Conference 2019">
-<meta name="twitter:description" content="這次 conference 各個大大的分享雖然都比較偏向在企業上的經驗，不過其實聽下來許多處理資料的想法都跟我們生態上所接觸的相去不遠，大概在資料的世界即使領域不同還是互通的吧～所以即使分享的大大們沒有生物相關背景的，這次的收穫還是非常的豐富！ 以下就依每場演講來留個紀錄，雖然是很零散地筆記XD，不過還是留個紀錄 01_Health Care AnalyticsElvena Fong, Healt">
+<meta name="twitter:title" content="[筆記] PostgreSQL on NAS">
+<meta name="twitter:description" content="NAS (Network Attached Storage) 是透過網路來連接的儲存裝置，有點像是小型的雲端伺服器，電腦可以透過網路來存取 NAS 上的檔案。而 NAS 除了以檔案/ 資料夾的形式來共享資料之外，也可以透過建立資料庫來分享資料。以下筆記在 NAS 上面建立 Postgres 資料庫所需要的操作以及如何取得已建立資料庫裡面的檔案。 以下操作 NAS 的型號為 QNAP TS-453B">
+<meta name="twitter:image" content="https://i.imgur.com/R9ADFiK.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://kemushi54.github.io/2019/04/02/心得-WiDS-Taipei-Conference-2019/">
+  <link rel="canonical" href="https://kemushi54.github.io/2019/09/13/筆記-PostgreSQL-on-NAS/">
 
 
 
 
 
-  <title>[心得] WiDS Taipei Conference 2019 | Coffee -> Code</title>
+  <title>[筆記] PostgreSQL on NAS | Coffee -> Code</title>
   
 
 
@@ -253,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kemushi54.github.io/2019/04/02/心得-WiDS-Taipei-Conference-2019/">
+    <link itemprop="mainEntityOfPage" href="https://kemushi54.github.io/2019/09/13/筆記-PostgreSQL-on-NAS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kemushi54">
@@ -270,7 +273,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">[心得] WiDS Taipei Conference 2019</h2>
+          <h2 class="post-title" itemprop="name headline">[筆記] PostgreSQL on NAS</h2>
         
 
         <div class="post-meta">
@@ -282,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-02T23:01:46+08:00">
-                2019-04-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-13T21:39:20+08:00">
+                2019-09-13
               </time>
             
 
@@ -293,28 +296,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/心得/" itemprop="url" rel="index">
-                    <span itemprop="name">心得</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -323,8 +304,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/04/02/心得-WiDS-Taipei-Conference-2019/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/02/心得-WiDS-Taipei-Conference-2019/" itemprop="commentCount"></span>
+                <a href="/2019/09/13/筆記-PostgreSQL-on-NAS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/13/筆記-PostgreSQL-on-NAS/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -352,141 +333,32 @@
       
 
       
-        <p>這次 conference 各個大大的分享雖然都比較偏向在企業上的經驗，不過其實聽下來許多處理資料的想法都跟我們生態上所接觸的相去不遠，大概在資料的世界即使領域不同還是互通的吧～所以即使分享的大大們沒有生物相關背景的，這次的收穫還是非常的豐富！</p>
-<p>以下就依每場演講來留個紀錄，雖然是很零散地筆記XD，不過還是留個紀錄</p>
-<h2 id="01-Health-Care-Analytics"><a href="#01-Health-Care-Analytics" class="headerlink" title="01_Health Care Analytics"></a>01_Health Care Analytics</h2><p>Elvena Fong, Health Data Analytics Program Manager</p>
+        <p>NAS (Network Attached Storage) 是透過網路來連接的儲存裝置，有點像是小型的雲端伺服器，電腦可以透過網路來存取 NAS 上的檔案。而 NAS 除了以檔案/ 資料夾的形式來共享資料之外，也可以透過建立資料庫來分享資料。以下筆記在 NAS 上面建立 Postgres 資料庫所需要的操作以及如何取得已建立資料庫裡面的檔案。</p>
+<p>以下操作 NAS 的型號為 QNAP TS-453Be，本機端作業系統為 Windows 10。</p>
+<h2 id="Install-PostgreSQL-on-NAS"><a href="#Install-PostgreSQL-on-NAS" class="headerlink" title="Install PostgreSQL on NAS"></a>Install PostgreSQL on NAS</h2><p>在 QNAP TS-453Be 上要安裝 PostgreSQL 很容易，只以 admin 管理者帳號連進 NAS，去官方的 APP Center 下載安裝檔，照著說明安裝就可以了，後續資料庫的建置也可以透過其內建的 phpPgAdmin WebUI 管理介面來操作。不過這時候資料庫的使用權限只開放給 admin 帳號，其他帳戶無法透過遠端來連線 NAS 取得資料庫的服務。要讓其它帳戶也可以遠端使用資料庫內的資料，需要修改幾個 PostgreSQL 的設定檔。</p>
+<h2 id="Edit-configuration-files"><a href="#Edit-configuration-files" class="headerlink" title="Edit configuration files"></a>Edit configuration files</h2><ol>
+<li><p>以 admin 管理者帳號登入 NAS，開啟允許 SSH 遠端連線 NAS 的功能 (記得開啟的通訊埠 (port) 編號)<br><img src="https://i.imgur.com/R9ADFiK.png" alt></p>
+</li>
+<li><p>透過 <a href="https://www.putty.org" target="_blank" rel="noopener">PuTTY</a> 遠端連線進 NAS 的終端機<br><img src="https://i.imgur.com/9Xxgrz0.png" alt></p>
+</li>
+<li><p>找到 NAS 裡面 PostgreSQL 的路徑，我的在<br><code>/share/CACHEDEV1_DATA/.qpkg/PostgreSQL/postgresDB</code></p>
+</li>
+<li><p>找到裡面的 <strong>postgresql.conf</strong> (PostgreSQL 設定檔) 以及 <strong>pg_hba.conf</strong> (Host-Based Authencation) 兩個檔案，並且修改連線部分的設定。</p>
 <ul>
-<li>Chellenges:<ol>
-<li>Technology<ul>
-<li>資料存取 -&gt; SQL</li>
-<li>tools for analysis</li>
-</ul>
+<li>~./postgresql.conf<br>開啟 listen_addresses 的設定並修改為 <code>&#39;*&#39;</code>，這樣只要知道 IP 的人都可以遠端進來，雖然方便，不過這樣的設定也會伴隨著一定程度的風險。<br>  (<code>#listen_addresses = &#39;localhost&#39;</code> to <code>listen_addresses = &#39;*&#39;</code>)</li>
+<li><p>~./pg_hba.conf<br>修改 IPv4 local connections，以下是修改的範例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> IPv4 local connections:</span><br><span class="line">host    all             all             127.0.0.1/32      trust    # only allow localhost to connect</span><br><span class="line">host    all             all             localhost          trust    # only allow localhost to connect</span><br><span class="line">host    all             all             0.0.0.0/0            md5   # allow all public host to connect</span><br><span class="line">host    all             all             192.168.0.0/24  md5   # allow IPs 192.168.0.* to connect</span><br></pre></td></tr></table></figure>
+<p>我在 terminal 的操作都是用 vim，如果輸入 vim 指令時出現 <code>E437: terminal capability &quot;cm&quot; required</code>，然後 vim 的操作變得不太正常，我找到的解法是輸入 <code>export TERM=xterm</code> 就可以解決了。</p>
 </li>
-<li>Access and tracking<ul>
-<li>統一獲取資料的窗口 -&gt; 各個 Program manager</li>
-<li>review data request </li>
-<li>project tracking system 追蹤使用資料的相關發表</li>
-</ul>
-</li>
-<li>Data cleaning<ul>
-<li>handling inconsistencies in the data</li>
-<li>normalize data</li>
-</ul>
-</li>
-<li>Knowledge Management<ul>
-<li>develope tools</li>
-<li>build data analysis template</li>
-</ul>
-</li>
-<li>Huge Dataset<ul>
-<li>use subset to do pretest/ build model</li>
 </ul>
 </li>
 </ol>
-</li>
-</ul>
-<p>發現原來想要整合資料的人都會面臨一樣的困境ＱＱ</p>
-<h2 id="02-The-art-and-science-of-marketing-in-retail"><a href="#02-The-art-and-science-of-marketing-in-retail" class="headerlink" title="02_The art and science of marketing in retail"></a>02_The art and science of marketing in retail</h2><p>Sharon Chai / 翟翎秀 Analytic Lead, Marketing Effectiveness</p>
-<ul>
-<li><p>B corporation.</p>
-</li>
-<li><p>Single Channel Marketing vs. Multi-Channel Marketing</p>
-</li>
-<li><p>以顧客為出發點去思考，而非行銷的方法</p>
-</li>
-<li><p>特生的應用：推廣活動/課程的成效評估（推了活動增加的志工數？ 認養的樣區？ 網站流量? 持續程度）</p>
-</li>
-<li><p>data silos</p>
-</li>
-<li>Channel-driven focus(客戶行為)</li>
-<li>non-linear consuner journeys</li>
-<li><p>lack of visibility to key information</p>
-</li>
-<li><p>對銷售的趨勢分析 deseasonalize<br><a href="https://anomaly.io/seasonal-trend-decomposition-in-r/" target="_blank" rel="noopener">desesonalize in r</a></p>
-</li>
-</ul>
-<p>最後是這一場講者分享，我自己也很喜歡的幾句話</p>
-<blockquote>
-<p>Know who you are.<br>Know what you are committed to.<br>Think and live bigger than yourself.<br>Open your heart, having it get stomped on, and having the courage to do it again.</p>
-</blockquote>
-<p>當然還是希望不要被蹂躪太多次才好啦…</p>
-<h2 id="My-Data-science-journey-from-physics-to-business"><a href="#My-Data-science-journey-from-physics-to-business" class="headerlink" title="My Data science journey - from physics to business"></a>My Data science journey - from physics to business</h2><p>Tammy Yang<br>DT42 Numbers</p>
-<ul>
-<li><p>為什麼粒子物理學家是個好資料分析師XD</p>
-<ol>
-<li>Capture data: to understand where is the source of data, where the data come from</li>
-<li>Create data pipeline: to extract the data needed only, and delete those you don’t need</li>
-<li>Simulation: 運用模擬資料產生需要的 model(script)</li>
-<li>Understand experimental error: 知道每一個步驟(資料收集過程)都會產生怎樣的實驗誤差(bias)</li>
-<li>Background modeling</li>
-<li>Signal event selection (machine learning)</li>
-<li>Estimate uncertainty(系統誤差): 分析過程(filte data, modeling)時候的誤差<br>任何一個篩選資料的步驟時會不會也把某些資訊(background)給刪除掉了？</li>
-<li>Results: 結過是否合理，在什麼樣的情境下可以解釋</li>
+<ol start="5">
+<li>以上設定修改完後，應該就可以在本機端從 psql 連進資料庫了。如果使用原本的 postgres 帳號密碼遠端連線卻遇到 Postgres password authentication fails 的問題的話，可以試著回到 NAS 的圖形化介面，登入 phpPgAdmin 修改密碼，接著用新的密碼遠端應該就可以順利登入惹～</li>
 </ol>
-</li>
-<li><p>資料分析 ＝ 有資料(被數據化)可以被分析</p>
-</li>
-<li><p>Issue priority<br>給數字！index，希望每個進來的人頭上都有事情重要程度的指標XD</p>
-<ul>
-<li>Give different weight to reporter</li>
-<li>Weight based on importance(from reporter)</li>
-<li>Prioritize by milestone (什麼時候該被解決)</li>
-<li>Parse keyword in description</li>
-<li>Let each party own thier own tags</li>
-</ul>
-</li>
-</ul>
-<p>然後底下的工程師就會開始養bug wwww (沒bug可以養，只好來養事情的重要性指數惹(誤))</p>
-<h2 id="Hypothesis-Testing-with-Python"><a href="#Hypothesis-Testing-with-Python" class="headerlink" title="Hypothesis Testing with Python"></a>Hypothesis Testing with Python</h2><p>Mosky Liu</p>
-<ul>
-<li>P-value 代表的是收集到的資料與 null hupothesis 的相容性</li>
-<li><p>accept/reject ！＝ true/false</p>
-</li>
-<li><p>Boxplot 加上蝕刻可以方便地判斷組別之間是否有差異<br>蝕刻範圍不重疊 -&gt; 有差異(不過還是要做檢定比較保險XD)</p>
-</li>
-</ul>
-<p>範例 R code<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p + geom_boxplot(notch = <span class="literal">TRUE</span>)   <span class="comment"># 蝕刻為95% confidence interval</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p>Actual negative rate</p>
-</li>
-<li><p>Complete a test</p>
-<ol>
-<li>Hypothesis -&gt; what teat<br>先確定假說後才能決定要用什麼檢定來驗證</li>
-<li>actual negative rate -&gt; decide alpha, beta<br>決定 Actual negative rate 才能決定 alpha 跟 beta</li>
-<li>alpha, beta, raw effect size -&gt; decide sample size<br>確定 alpha, beta, raw effect size才能決定至少需要多大的sample size</li>
-<li>collect a sample as large as possible</li>
-<li>understand and preproccess the sample<br>plot, missing data, outlier, transform, ect.</li>
-<li>Test</li>
-<li>Report fully<br>not just the p-value!!!</li>
-</ol>
-</li>
-<li><p>推薦讀物</p>
-<ul>
-<li><a href="https://lindeloev.github.io/tests-as-linear/" target="_blank" rel="noopener">Common statistical tests are linear models </a></li>
-<li><a href="https://seeing-theory.brown.edu/" target="_blank" rel="noopener">Seeing theory</a></li>
-<li><a href="https://www.statsmodels.org/stable/index.html" target="_blank" rel="noopener">StatsModel</a></li>
-<li><a href="http://www.biostathandbook.com/" target="_blank" rel="noopener">Handbook of biological statistic</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="A-data-project-is-born-from-initiative-to-resource-to-impact"><a href="#A-data-project-is-born-from-initiative-to-resource-to-impact" class="headerlink" title="A data project is born - from initiative, to resource, to impact"></a>A data project is born - from initiative, to resource, to impact</h2><p>Megan Sun, Project Manager, OLX Group</p>
-<ul>
-<li><p>Data is an end-to-end journey</p>
-</li>
-<li><p>The lifecycle of a data project</p>
-<ol>
-<li>Initiative</li>
-<li>planning</li>
-<li>resource</li>
-<li>developing/ implementation</li>
-<li>promote/ maintain</li>
-</ol>
-</li>
-<li><p>了解要解決的問題，一起來合作的 Team 他們針對這個 project 各自的需求是什麼，在這個 project 中他們在意(對他們有利)的是什麼？又有哪些事情是在這個 project 運行時不能被妥協的？</p>
-</li>
-<li><p><a href="https://www.smartliving365.com/promotion-prevention-whats-focus-matters/" target="_blank" rel="noopener">Promotion focus or Prevention focus</a></p>
-</li>
-</ul>
+<h2 id="Import-data-from-Postgres-in-R"><a href="#Import-data-from-Postgres-in-R" class="headerlink" title="Import data from Postgres in R"></a>Import data from Postgres in R</h2><p>R 連接資料庫需要的套件是 RPostgres，若不想把自己的帳號密碼放在 script 裡面，如果是 RStudio 的使用者，可以利用下面 rstudioapi 的方式透過 GUI 畫面輸入帳號密碼。要取得資料庫內的資料可以用 <code>dbGetQuery</code>，會返回 data.frame。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(RPostgres)</span><br><span class="line">con &lt;- dbConnect(Postgres(), </span><br><span class="line">                  host=<span class="string">"localhost"</span>, <span class="comment"># 需替換成資料庫的 IP </span></span><br><span class="line">                  dbname=<span class="string">"dvdrental"</span>, <span class="comment"># 資料庫的名字</span></span><br><span class="line">                  user=rstudioapi::askForPassword(<span class="string">"Database username"</span>), <span class="comment"># posrgres 的帳號</span></span><br><span class="line">                  password=rstudioapi::askForPassword(<span class="string">"Database password"</span>)) <span class="comment"># 密碼</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 讀取資料                  </span></span><br><span class="line">data_psql &lt;- dbGetQuery(con, <span class="string">"select * table_1"</span>) <span class="comment"># 第二個參數為 sql 語法</span></span><br></pre></td></tr></table></figure></p>
+<p>非 RStudio 用戶的話也可以透過 <strong><a href="https://github.com/r-lib/keyring" target="_blank" rel="noopener">keyring</a></strong> 來隱藏密碼的資訊，詳細的設定可以參考 <a href="https://rviews.rstudio.com/2019/03/21/how-to-avoid-publishing-credentials-in-your-code/" target="_blank" rel="noopener">這裡</a></p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://www.qnap.com/zh-hk/how-to/knowledge-base/article/how-to-access-qnap-nas-by-ssh/" target="_blank" rel="noopener">How to access QNAP NAS by SSH?</a><br><a href="http://ilearnblogger.blogspot.com/2014/03/qnaplinux-tool-postgresql.html" target="_blank" rel="noopener">QNAP/Linux Tool - PostgreSQL</a><br><a href="https://forum.blackmagicdesign.com/viewtopic.php?f=21&amp;t=77336" target="_blank" rel="noopener">PostgreSQL database and QNAP</a><br><a href="http://www.blogdaren.com/post-2304.html" target="_blank" rel="noopener">【原创】如何解决 E437: terminal capability ＂cm＂ required</a><br><a href="https://askubuntu.com/questions/413585/postgres-password-authentication-fails" target="_blank" rel="noopener">Postgres password authentication fails</a><br><a href="https://nuitrcs.github.io/databases_workshop/r/r_databases.html" target="_blank" rel="noopener">R: Working with Databases</a></p>
 
       
     </div>
@@ -504,7 +376,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/WiDS/" rel="tag"># WiDS</a>
+            <a href="/tags/PostgreSQL/" rel="tag"># PostgreSQL</a>
           
         </div>
       
@@ -517,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/01/筆記-打造自己的-blog，Hexo-Github-之二/" rel="next" title="[筆記] 打造自己的 blog，Hexo + Github 之二">
-                <i class="fa fa-chevron-left"></i> [筆記] 打造自己的 blog，Hexo + Github 之二
+              <a href="/2019/09/07/筆記-R-with-Visual-Studio-Code-VS-Code/" rel="next" title="[筆記] R with Visual Studio Code (VS Code)">
+                <i class="fa fa-chevron-left"></i> [筆記] R with Visual Studio Code (VS Code)
               </a>
             
           </div>
@@ -526,10 +398,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/21/筆記-使用-Chocolatey-打造-Windows-環境/" rel="prev" title="[筆記] 使用 Chocolatey 打造 Windows 環境">
-                [筆記] 使用 Chocolatey 打造 Windows 環境 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -689,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-Health-Care-Analytics"><span class="nav-number">1.</span> <span class="nav-text">01_Health Care Analytics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-The-art-and-science-of-marketing-in-retail"><span class="nav-number">2.</span> <span class="nav-text">02_The art and science of marketing in retail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#My-Data-science-journey-from-physics-to-business"><span class="nav-number">3.</span> <span class="nav-text">My Data science journey - from physics to business</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypothesis-Testing-with-Python"><span class="nav-number">4.</span> <span class="nav-text">Hypothesis Testing with Python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-data-project-is-born-from-initiative-to-resource-to-impact"><span class="nav-number">5.</span> <span class="nav-text">A data project is born - from initiative, to resource, to impact</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-PostgreSQL-on-NAS"><span class="nav-number">1.</span> <span class="nav-text">Install PostgreSQL on NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edit-configuration-files"><span class="nav-number">2.</span> <span class="nav-text">Edit configuration files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Import-data-from-Postgres-in-R"><span class="nav-number">3.</span> <span class="nav-text">Import data from Postgres in R</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">3.1.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -859,9 +727,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://kemushi54.github.io/2019/04/02/心得-WiDS-Taipei-Conference-2019/';
-          this.page.identifier = '2019/04/02/心得-WiDS-Taipei-Conference-2019/';
-          this.page.title = '[心得] WiDS Taipei Conference 2019';
+          this.page.url = 'https://kemushi54.github.io/2019/09/13/筆記-PostgreSQL-on-NAS/';
+          this.page.identifier = '2019/09/13/筆記-PostgreSQL-on-NAS/';
+          this.page.title = '[筆記] PostgreSQL on NAS';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://kemushi54.disqus.com/embed.js';
